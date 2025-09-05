@@ -24,7 +24,10 @@
 
 ### Задание 1
 
-https://github.com/pyshadrin/gitlab-hw/commit/e663ff58d957249b679deacb99c9619921255f6f
+`rsync -av --delete --checksum --exclude='.*' ~/ /tmp/backup/`
+
+<img width="655" height="678" alt="image" src="https://github.com/user-attachments/assets/cc48afe5-e1f4-4939-862b-7fc9006a2fa8" />
+
 
 ---
 
