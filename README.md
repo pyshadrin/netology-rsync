@@ -33,6 +33,40 @@
 
 ### Задание 2
 
-https://github.com/pyshadrin/gitlab-hw/commit/990a0715804c7c6a4614e5960084002724277c5f
+```
+cat /usr/local/bin/backup_home.sh
+#!/bin/bash
+
+# Скрипт зеркального резервного копирования домашней директории пользователя
+# Дата и время для логов
+DATE=$(date '+%Y-%m-%d %H:%M:%S')
+
+# Пути
+SRC="$HOME/"
+DEST="/tmp/backup/"
+
+# Выполнение rsync
+rsync -av --delete --checksum --exclude='.*' "$SRC" "$DEST"
+STATUS=$?
+
+# Логирование результата в journald
+if [ $STATUS -eq 0 ]; then
+    /usr/bin/logger -t backup_home -p user.info "[$DATE] Резервное копирование успешно выполнено"
+else
+    /usr/bin/logger -t backup_home -p user.err "[$DATE] Ошибка при выполнении резервного копирования (код $STATUS)"
+fi
+
+exit $STATUS
+```
+
+```
+crontab -l
+
+0 2 * * * /usr/local/bin/backup_home.sh
+```
+
+<img width="853" height="384" alt="image" src="https://github.com/user-attachments/assets/37b49263-baab-4b5a-af8e-d38b465c8a77" />
+
+
 
 ---
